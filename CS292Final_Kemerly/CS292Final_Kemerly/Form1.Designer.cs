@@ -45,10 +45,10 @@
             // 
             // btnDecide
             // 
-            this.btnDecide.Location = new System.Drawing.Point(164, 187);
+            this.btnDecide.Location = new System.Drawing.Point(179, 187);
             this.btnDecide.Name = "btnDecide";
             this.btnDecide.Size = new System.Drawing.Size(85, 23);
-            this.btnDecide.TabIndex = 3;
+            this.btnDecide.TabIndex = 1;
             this.btnDecide.Text = "Decide";
             this.btnDecide.UseVisualStyleBackColor = true;
             this.btnDecide.Click += new System.EventHandler(this.btnDecide_Click);
@@ -59,9 +59,9 @@
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 309);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(258, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(275, 22);
             this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblStatus
@@ -76,8 +76,8 @@
             this.grpWhoDecides.Controls.Add(this.radUser);
             this.grpWhoDecides.Location = new System.Drawing.Point(12, 187);
             this.grpWhoDecides.Name = "grpWhoDecides";
-            this.grpWhoDecides.Size = new System.Drawing.Size(146, 71);
-            this.grpWhoDecides.TabIndex = 5;
+            this.grpWhoDecides.Size = new System.Drawing.Size(161, 71);
+            this.grpWhoDecides.TabIndex = 0;
             this.grpWhoDecides.TabStop = false;
             this.grpWhoDecides.Text = "Who Decides?";
             // 
@@ -88,7 +88,7 @@
             this.radComputer.Location = new System.Drawing.Point(6, 19);
             this.radComputer.Name = "radComputer";
             this.radComputer.Size = new System.Drawing.Size(140, 17);
-            this.radComputer.TabIndex = 1;
+            this.radComputer.TabIndex = 0;
             this.radComputer.TabStop = true;
             this.radComputer.Text = "The app is The Decider.";
             this.radComputer.UseVisualStyleBackColor = true;
@@ -100,27 +100,27 @@
             this.radUser.Location = new System.Drawing.Point(6, 42);
             this.radUser.Name = "radUser";
             this.radUser.Size = new System.Drawing.Size(110, 17);
-            this.radUser.TabIndex = 0;
+            this.radUser.TabIndex = 1;
             this.radUser.Text = "I am The Decider.";
             this.radUser.UseVisualStyleBackColor = true;
             this.radUser.CheckedChanged += new System.EventHandler(this.radUser_CheckedChanged);
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(164, 274);
+            this.btnReset.Location = new System.Drawing.Point(179, 274);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(85, 23);
-            this.btnReset.TabIndex = 6;
+            this.btnReset.TabIndex = 5;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnEndorse
             // 
-            this.btnEndorse.Location = new System.Drawing.Point(164, 216);
+            this.btnEndorse.Location = new System.Drawing.Point(179, 216);
             this.btnEndorse.Name = "btnEndorse";
             this.btnEndorse.Size = new System.Drawing.Size(85, 23);
-            this.btnEndorse.TabIndex = 7;
+            this.btnEndorse.TabIndex = 2;
             this.btnEndorse.Text = "Endorse/Veto";
             this.btnEndorse.UseVisualStyleBackColor = true;
             this.btnEndorse.Click += new System.EventHandler(this.btnEndorse_Click);
@@ -130,7 +130,7 @@
             this.btnHistory.Location = new System.Drawing.Point(12, 274);
             this.btnHistory.Name = "btnHistory";
             this.btnHistory.Size = new System.Drawing.Size(85, 23);
-            this.btnHistory.TabIndex = 8;
+            this.btnHistory.TabIndex = 4;
             this.btnHistory.Text = "History";
             this.btnHistory.UseVisualStyleBackColor = true;
             this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
@@ -140,15 +140,15 @@
             this.lstMain.FormattingEnabled = true;
             this.lstMain.Location = new System.Drawing.Point(12, 12);
             this.lstMain.Name = "lstMain";
-            this.lstMain.Size = new System.Drawing.Size(237, 160);
-            this.lstMain.TabIndex = 9;
+            this.lstMain.Size = new System.Drawing.Size(252, 160);
+            this.lstMain.TabIndex = 6;
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(164, 245);
+            this.btnEdit.Location = new System.Drawing.Point(179, 245);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(85, 23);
-            this.btnEdit.TabIndex = 10;
+            this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -157,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(258, 331);
+            this.ClientSize = new System.Drawing.Size(275, 331);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.lstMain);
             this.Controls.Add(this.btnHistory);
