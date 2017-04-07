@@ -21,6 +21,16 @@ namespace CS292Final_Kemerly
         DataSet ds = new DataSet();
         string sql;
 
+        //global stuff
+        /*decisionStage -
+         * 0:fresh, 1:categories endorsed, 2: category selected
+         * 3:names endorsed 4:final
+         */
+        public int decisionStage = 0;
+        public string gSelectedCategory = "";
+        public bool categoryEndorsed = false;
+        public bool nameEndorsed = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,12 +38,20 @@ namespace CS292Final_Kemerly
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CategoryList();
+            CategoryListBox();
         }
 
         private void btnDecide_Click(object sender, EventArgs e)
         {
-
+            if (radUser.Checked)
+            {
+                if (decisionStage == 0)
+                {
+                    gSelectedCategory = lstMain.SelectedItem.ToString();
+                    RestaurantListBox(gSelectedCategory);
+                    decisionStage = 2;
+                }
+            }
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -65,15 +83,15 @@ namespace CS292Final_Kemerly
         }
 
         private void radComputer_CheckedChanged(object sender, EventArgs e)
-        {
+        {            
             if (radComputer.Checked)
             {
                 btnEndorse.Enabled = true;
             }
         }
 
-        private void CategoryList()
-        {//holy crap.
+        private void CategoryListBox()
+        {
             lstMain.Items.Clear();
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {
@@ -94,6 +112,31 @@ namespace CS292Final_Kemerly
                     }
                 }
             }
-        }
+        }//end CategoryListBox
+
+        private void RestaurantListBox(string pSelectedCategory)
+        {
+            lstMain.Items.Clear();
+            using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
+            {
+                conn.Open();
+                sql = "SELECT Name FROM Restaurants WHERE Category = " + 
+                    "'" + pSelectedCategory + "'";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!lstMain.Items.Contains(reader["Name"].ToString()))
+                            {
+                                lstMain.Items.Add(reader["Name"].ToString());
+                            }
+
+                        }
+                    }
+                }
+            }
+        }//end RestaurantListBox
     }
 }
