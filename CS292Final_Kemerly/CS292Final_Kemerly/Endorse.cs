@@ -19,70 +19,92 @@ namespace CS292Final_Kemerly
 
         private void Endorse_Load(object sender, EventArgs e)
         {
-            if (Globals.gDecisionStage <= 1)//Looking to endorse categories.
+            if (Glb.gDecisionStage <= 1)//Looking to endorse categories.
             {
-                foreach (Globals.CatStruct cat in Globals.gCatList)
+                foreach (Glb.CatStruct cat in Glb.gCatList)
                 {//populating the list
                     lstEndorse.Items.Add("("+cat.weight.ToString("n1") + ") " + cat.category);
                 }
             }
         }
 
-        private void btnEndorse_Click(object sender, EventArgs e)
+        private bool selectionExists()
         {
+            bool output = false;
+
             if (lstEndorse.SelectedIndex == -1)
             {
+                output = false;
                 System.Media.SystemSounds.Beep.Play();
                 errProv.SetError(lstEndorse, "Please click an item in the list box.");
-                return;
+            }
+            else
+            {
+                output = true;
             }
 
-            string selection = lstEndorse.SelectedItem.ToString().Remove(0,1);
-            string[] splitStr = selection.Split(')');
+            return output;
+        }
+
+        private string reString(string input, double weight)
+        {//generates a string to replace a line in the listbox
+            string output = "";
+            string[] temp = input.Split(')');
+
+            output = "(" + weight.ToString("n1") + ")" + temp[1];
+            return output;
+        }
+
+        private void updateListBox(int inpIndex,string output)
+        {
+            lstEndorse.Items.RemoveAt(inpIndex);
+            lstEndorse.Items.Insert(inpIndex, output);
+        }
+
+        private void btnEndorse_Click(object sender, EventArgs e)
+        {
+            if (!selectionExists())
+            {                
+                return;
+            }
+            
             string output;
-            double weight = double.Parse(splitStr[0]);
+            double weight = 0;
             int index = lstEndorse.SelectedIndex;
                         
-            if (radW10.Checked && weight != 1.0)
+            if (radW10.Checked)
             {
                 weight = 1.0;
             }
-            if (radW15.Checked && weight != 1.5)
+            if (radW15.Checked)
             {
                 weight = 1.5;
             }
-            if (radW20.Checked && weight != 2.0)
+            if (radW20.Checked)
             {
                 weight = 2.0;
             }
-            if (radW30.Checked && weight != 3.0)
+            if (radW30.Checked)
             {
                 weight = 3.0;
             }
-            output = "(" + weight.ToString("n1") + ")" + splitStr[1];
-            lstEndorse.Items.RemoveAt(index);
-            lstEndorse.Items.Insert(index, output);
+            output = reString(lstEndorse.SelectedItem.ToString(), weight);
+            updateListBox(index, output);
         }
 
         private void btnVeto_Click(object sender, EventArgs e)
         {//i know, i know, identical click events, but i think it makes more sense from a user-experience
             //perspective to have the veto as a separate button.
-            if (lstEndorse.SelectedIndex == -1)
+            if (!selectionExists())
             {
-                System.Media.SystemSounds.Beep.Play();
-                errProv.SetError(lstEndorse, "Please click an item in the list box.");
                 return;
-            }
-
-            string selection = lstEndorse.SelectedItem.ToString().Remove(0, 1);
-            string[] splitStr = selection.Split(')');
+            }            
             string output;
             double weight = 0;
             int index = lstEndorse.SelectedIndex;
-
-            output = "(" + weight.ToString("n1") + ")" + splitStr[1];
-            lstEndorse.Items.RemoveAt(index);
-            lstEndorse.Items.Insert(index, output);
+                        
+            output = reString(lstEndorse.SelectedItem.ToString(), weight);
+            updateListBox(index, output);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -93,19 +115,19 @@ namespace CS292Final_Kemerly
         private void Endorse_FormClosing(object sender, FormClosingEventArgs e)
         {
             //rekajigger the appropriate lists
-            if (Globals.gDecisionStage < 2)
+            if (Glb.gDecisionStage < 2)
             {
-                Globals.gCatList.Clear();
+                Glb.gCatList.Clear();
                 foreach (string catItem in lstEndorse.Items)
                 {
                     string input = catItem.Remove(0, 1);
                     string[] splitStr = input.Split(')');
-                    Globals.CatStruct temp;
+                    Glb.CatStruct temp;
                     temp.category = splitStr[1].Trim();
                     temp.weight = double.Parse(splitStr[0]);
-                    Globals.gCatList.Add(temp);
+                    Glb.gCatList.Add(temp);
                 }
-                Globals.gDecisionStage = 1;
+                Glb.gDecisionStage = 1;
             }
             
         }

@@ -35,12 +35,12 @@ namespace CS292Final_Kemerly
         {
             if (radUser.Checked)//manual decision at...
             {
-                if (Globals.gDecisionStage == 0)//...category stage.
+                if (Glb.gDecisionStage == 0)//...category stage.
                 {
-                    Globals.gSelectedCategory = lstMain.SelectedItem.ToString();
-                    RestaurantListBox(Globals.gSelectedCategory);
+                    Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
+                    RestaurantListBox(Glb.gSelectedCategory);
                     //category decision is made.
-                    Globals.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.          
+                    Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.          
                 }
             }
         }
@@ -63,31 +63,34 @@ namespace CS292Final_Kemerly
         private void btnEndorse_Click(object sender, EventArgs e)
         {
             //put each item from listbox into struct, into list.
-            if (Globals.gDecisionStage == 0)
+            if (Glb.gDecisionStage == 0)
             {
                 //Category stuff                
                 foreach (string restCat in lstMain.Items)
                 {
-                    Globals.CatStruct smith;//"just say 'smith' or 'jones.' it don't matter."
+                    Glb.CatStruct smith;//"just say 'smith' or 'jones.' it don't matter."
                     smith.category = restCat;
                     smith.weight = 1;
-                    Globals.gCatList.Add(smith);
+                    Glb.gCatList.Add(smith);
                 }
             }
-            else if (Globals.gDecisionStage == 2)
+            else if (Glb.gDecisionStage == 2)
             {
                 //Name stuff
                 foreach (string restName in lstMain.Items)
                 {
-                    Globals.RestStruct jones;//"none of this matters."
+                    Glb.RestStruct jones;//"...none of this matters."
                     jones.name = restName;
                     jones.weight = 1;
-                    Globals.gRestList.Add(jones);
+                    Glb.gRestList.Add(jones);
                 }
             }
 
             Endorse frmEndorse = new Endorse();
             frmEndorse.ShowDialog();
+            //lstMain.Items.Clear();
+
+            //foreach ()
         }
 
         private void radUser_CheckedChanged(object sender, EventArgs e)

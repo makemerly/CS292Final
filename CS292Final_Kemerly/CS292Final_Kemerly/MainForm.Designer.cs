@@ -45,7 +45,7 @@
             // 
             // btnDecide
             // 
-            this.btnDecide.Location = new System.Drawing.Point(179, 187);
+            this.btnDecide.Location = new System.Drawing.Point(179, 216);
             this.btnDecide.Name = "btnDecide";
             this.btnDecide.Size = new System.Drawing.Size(85, 23);
             this.btnDecide.TabIndex = 1;
@@ -117,7 +117,7 @@
             // 
             // btnEndorse
             // 
-            this.btnEndorse.Location = new System.Drawing.Point(179, 216);
+            this.btnEndorse.Location = new System.Drawing.Point(179, 187);
             this.btnEndorse.Name = "btnEndorse";
             this.btnEndorse.Size = new System.Drawing.Size(85, 23);
             this.btnEndorse.TabIndex = 2;
@@ -153,7 +153,7 @@
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -168,7 +168,7 @@
             this.Controls.Add(this.btnDecide);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "The Decider";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
