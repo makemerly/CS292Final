@@ -90,6 +90,7 @@ namespace CS292Final_Kemerly
             }
             output = reString(lstEndorse.SelectedItem.ToString(), weight);
             updateListBox(index, output);
+            lstEndorse.SelectedIndex = index;
         }
 
         private void btnVeto_Click(object sender, EventArgs e)
@@ -105,6 +106,7 @@ namespace CS292Final_Kemerly
                         
             output = reString(lstEndorse.SelectedItem.ToString(), weight);
             updateListBox(index, output);
+            lstEndorse.SelectedIndex = index;
         }
 
         private void btnDone_Click(object sender, EventArgs e)

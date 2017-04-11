@@ -31,20 +31,69 @@ namespace CS292Final_Kemerly
             CategoryListBox();
         }
 
+        private List<string> MakeCatDecList(List<Glb.CatStruct> inpList)
+        {//populates a "weighted" list of category entries.
+            var outList = new List<string>();
+
+            foreach (Glb.CatStruct catStruct in inpList)
+            {
+                int maxIndex = (int)(2 * catStruct.weight);
+                for (int i = 0; i < maxIndex; i++)
+                {
+                    outList.Add(catStruct.category);
+                }
+            }
+
+            return outList;
+        }
+
         private void btnDecide_Click(object sender, EventArgs e)
         {
-            if (radUser.Checked)//manual decision at...
+            if (radUser.Checked)//manual decision
             {
-                if (Glb.gDecisionStage == 0)//...category stage.
+                if (Glb.gDecisionStage == 0)//...from a fresh start
                 {
                     Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
                     RestaurantListBox(Glb.gSelectedCategory);
                     //category decision is made.
-                    Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.          
+                    Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.
+                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                }
+                if (Glb.gDecisionStage == 1)//...endorse/veto made, changed mind to decide manually
+                {
+                    string selection = lstMain.SelectedItem.ToString().Remove(0,1);
+                    string[] tokens = selection.Split(')');
+                    string category = tokens[1];
+                    Glb.gSelectedCategory= category.Trim();
+                    //category decision is made.
+                    Glb.gDecisionStage = 2;
+                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                }
+            }
+            if (radComputer.Checked)//app decides
+            {
+                if (Glb.gDecisionStage == 0)//app needs more info -> btnEndorse
+                {
+                    System.Media.SystemSounds.Beep.Play();
+                    MessageBox.Show("Click the Endorse/Veto button to set up endorsements and vetoes "
+                        + "so The Decider can make an informed Decision.", "\"You can't just decide.\"");
+                    return;
+                }
+                if (Glb.gDecisionStage == 1)
+                {//populate weighted list. randomly select index = selected category.
+                    Glb.gCatDecisionList = MakeCatDecList(Glb.gCatList);
+                    Random randal = new Random();
+                    int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
+                    Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
+                    //category decision is made
+                    Glb.gDecisionStage = 2;
+                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                    
                 }
             }
         }
 
+        
         private void btnReset_Click(object sender, EventArgs e)
         {
 
@@ -61,7 +110,9 @@ namespace CS292Final_Kemerly
         }
 
         private void btnEndorse_Click(object sender, EventArgs e)
-        {
+        {//construct lists from lstMain, open Endorse form, reconstruct lstMain
+            Endorse frmEndorse = new Endorse();
+
             //put each item from listbox into struct, into list.
             if (Glb.gDecisionStage == 0)
             {
@@ -73,6 +124,7 @@ namespace CS292Final_Kemerly
                     smith.weight = 1;
                     Glb.gCatList.Add(smith);
                 }
+                
             }
             else if (Glb.gDecisionStage == 2)
             {
@@ -85,10 +137,17 @@ namespace CS292Final_Kemerly
                     Glb.gRestList.Add(jones);
                 }
             }
-
-            Endorse frmEndorse = new Endorse();
+            //show window
             frmEndorse.ShowDialog();
-            //lstMain.Items.Clear();
+            //reconstruct lstMain based on decision stage
+            lstMain.Items.Clear();
+            if (Glb.gDecisionStage < 2)
+            {
+                foreach (Glb.CatStruct cat in Glb.gCatList)
+                {//populating the list
+                    lstMain.Items.Add("(" + cat.weight.ToString("n1") + ") " + cat.category);
+                }
+            }
 
             //foreach ()
         }
