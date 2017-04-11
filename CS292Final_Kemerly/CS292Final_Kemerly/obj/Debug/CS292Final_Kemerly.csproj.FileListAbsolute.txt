@@ -2,7 +2,6 @@ C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Deb
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.exe
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.pdb
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.csprojResolveAssemblyReference.cache
-C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Form1.resources
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Properties.Resources.resources
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.csproj.GenerateResource.Cache
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.exe
@@ -17,6 +16,4 @@ C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Deb
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\System.Data.SQLite.xml
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.History.resources
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Endorse.resources
-C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.exe.config
-C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.exe
-C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.pdb
+C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.MainForm.resources
