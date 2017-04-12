@@ -47,6 +47,21 @@ namespace CS292Final_Kemerly
             return outList;
         }
 
+        private List<string> MakeRestDecList(List<Glb.RestStruct> inpList)
+        {//populates a "weighted" list of restaunt names.
+            var outList = new List<string>();
+
+            foreach (Glb.RestStruct restStruct in inpList)
+            {
+                int maxIndex = (int)(2 * restStruct.weight);
+                for (int i = 0; i < maxIndex; i++)
+                {
+                    outList.Add(restStruct.name);
+                }
+            }
+
+            return outList;
+        }
         private void btnDecide_Click(object sender, EventArgs e)
         {
             if (radUser.Checked)//manual decision
@@ -56,7 +71,7 @@ namespace CS292Final_Kemerly
                     Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
                     RestaurantListBox(Glb.gSelectedCategory);
                     //category decision is made.
-                    Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.
+                    //Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.
                     lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
                 }
                 if (Glb.gDecisionStage == 1)//...endorse/veto made, changed mind to decide manually
@@ -66,13 +81,14 @@ namespace CS292Final_Kemerly
                     string category = tokens[1];
                     Glb.gSelectedCategory= category.Trim();
                     //category decision is made.
-                    Glb.gDecisionStage = 2;
+                    //Glb.gDecisionStage = 2;
                     lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
                 }
             }
             if (radComputer.Checked)//app decides
             {
-                if (Glb.gDecisionStage == 0)//app needs more info -> btnEndorse
+                if (Glb.gDecisionStage == 0 ||
+                    Glb.gDecisionStage == 2)//app needs more info -> btnEndorse
                 {
                     System.Media.SystemSounds.Beep.Play();
                     MessageBox.Show("Click the Endorse/Veto button to set up endorsements and vetoes "
@@ -86,10 +102,27 @@ namespace CS292Final_Kemerly
                     int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
                     //category decision is made
-                    Glb.gDecisionStage = 2;
+                    //Glb.gDecisionStage = 2;
                     lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
                     
                 }
+                if (Glb.gDecisionStage == 3)
+                { //populate weighted list. randomly select index = selected restaurant.
+                    Glb.gRestDecisionList = MakeRestDecList(Glb.gRestList);
+                    Random randal = new Random();
+                    int decisionIndex = randal.Next(0, Glb.gRestDecisionList.Count);
+                    Glb.gSelectedRestaurant = Glb.gRestDecisionList[decisionIndex];
+                    //restaurant decision is made
+                    //Glb.gDecisionStage = 4;
+                    lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
+                    //need to lock out other features now.
+                }
+            }
+            if (Glb.gDecisionStage < 2 && Glb.gSelectedCategory != "")
+            {
+                lstMain.Items.Clear();
+                RestaurantListBox(Glb.gSelectedCategory);
+                Glb.gDecisionStage = 2;
             }
         }
 
@@ -148,7 +181,13 @@ namespace CS292Final_Kemerly
                     lstMain.Items.Add("(" + cat.weight.ToString("n1") + ") " + cat.category);
                 }
             }
-
+            if (Glb.gDecisionStage >= 2)
+            {
+                foreach (Glb.RestStruct rest in Glb.gRestList)
+                {//populating the list
+                    lstMain.Items.Add("(" + rest.weight.ToString("n1") + ") " + rest.name);
+                }
+            }
             //foreach ()
         }
 

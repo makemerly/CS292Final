@@ -20,6 +20,7 @@ namespace CS292Final_Kemerly
         public static List<RestStruct> gRestList = new List<RestStruct>();
         public static List<string> gRestDecisionList = new List<string>();
         public static string gSelectedCategory = "";
+        public static string gSelectedRestaurant = "";
 
         public struct CatStruct//"Category Structure"
         {

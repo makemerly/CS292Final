@@ -26,6 +26,13 @@ namespace CS292Final_Kemerly
                     lstEndorse.Items.Add("("+cat.weight.ToString("n1") + ") " + cat.category);
                 }
             }
+            if (Glb.gDecisionStage >= 2)//looking to endorse restaurant
+            {
+                foreach(Glb.RestStruct rest in Glb.gRestList)
+                {//populating the list
+                    lstEndorse.Items.Add("(" + rest.weight.ToString("n1") + ") " + rest.name);
+                }
+            }
         }
 
         private bool selectionExists()
@@ -116,7 +123,7 @@ namespace CS292Final_Kemerly
 
         private void Endorse_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //rekajigger the appropriate lists
+            //rekajigger the appropriate global list
             if (Glb.gDecisionStage < 2)
             {
                 Glb.gCatList.Clear();
@@ -131,7 +138,20 @@ namespace CS292Final_Kemerly
                 }
                 Glb.gDecisionStage = 1;
             }
-            
+            if (Glb.gDecisionStage >= 2)
+            {
+                Glb.gRestList.Clear();
+                foreach (string restItem in lstEndorse.Items)
+                {
+                    string input = restItem.Remove(0, 1);
+                    string[] splitStr = input.Split(')');
+                    Glb.RestStruct temp;
+                    temp.name = splitStr[1].Trim();
+                    temp.weight = double.Parse(splitStr[0]);
+                    Glb.gRestList.Add(temp);
+                }
+                Glb.gDecisionStage = 3;
+            }
         }
     }
 }
