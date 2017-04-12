@@ -69,20 +69,29 @@ namespace CS292Final_Kemerly
                 if (Glb.gDecisionStage == 0)//...from a fresh start
                 {
                     Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
-                    RestaurantListBox(Glb.gSelectedCategory);
                     //category decision is made.
-                    //Glb.gDecisionStage = 2;//skipped stage 1 because manual decision at 0.
-                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
                 }
                 if (Glb.gDecisionStage == 1)//...endorse/veto made, changed mind to decide manually
                 {
                     string selection = lstMain.SelectedItem.ToString().Remove(0,1);
                     string[] tokens = selection.Split(')');
                     string category = tokens[1];
-                    Glb.gSelectedCategory= category.Trim();
-                    //category decision is made.
-                    //Glb.gDecisionStage = 2;
-                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                    Glb.gSelectedCategory = category.Trim();
+                    //category decision is made.                    
+                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                }
+                if (Glb.gDecisionStage == 2)
+                {
+                    Glb.gSelectedRestaurant = lstMain.SelectedItem.ToString();
+                    //restaurant decision is made.
+                }
+                if (Glb.gDecisionStage == 3)
+                {
+                    string selection = lstMain.SelectedItem.ToString().Remove(0, 1);
+                    string[] tokens = selection.Split(')');
+                    string name = tokens[1];
+                    Glb.gSelectedRestaurant = name.Trim();
                 }
             }
             if (radComputer.Checked)//app decides
@@ -103,7 +112,7 @@ namespace CS292Final_Kemerly
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
                     //category decision is made
                     //Glb.gDecisionStage = 2;
-                    lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
                     
                 }
                 if (Glb.gDecisionStage == 3)
@@ -114,15 +123,25 @@ namespace CS292Final_Kemerly
                     Glb.gSelectedRestaurant = Glb.gRestDecisionList[decisionIndex];
                     //restaurant decision is made
                     //Glb.gDecisionStage = 4;
-                    lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
+                    //lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
                     //need to lock out other features now.
                 }
             }
-            if (Glb.gDecisionStage < 2 && Glb.gSelectedCategory != "")
+            if (Glb.gDecisionStage < 2 && 
+                Glb.gSelectedCategory != "")
             {
                 lstMain.Items.Clear();
                 RestaurantListBox(Glb.gSelectedCategory);
                 Glb.gDecisionStage = 2;
+                lblStatus.Text = "Category selected: " + Glb.gSelectedCategory + ".";
+            }
+            if (Glb.gDecisionStage >= 2 &&
+                Glb.gSelectedRestaurant != "")
+            {
+                Glb.gDecisionStage = 4;
+                btnDecide.Enabled = false;
+                btnEndorse.Enabled = false;
+                lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
             }
         }
 
@@ -188,7 +207,6 @@ namespace CS292Final_Kemerly
                     lstMain.Items.Add("(" + rest.weight.ToString("n1") + ") " + rest.name);
                 }
             }
-            //foreach ()
         }
 
         private void radUser_CheckedChanged(object sender, EventArgs e)
