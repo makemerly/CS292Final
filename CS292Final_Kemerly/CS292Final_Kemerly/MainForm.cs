@@ -62,10 +62,48 @@ namespace CS292Final_Kemerly
 
             return outList;
         }
+
+        private string DateNowToString()
+        {//lol, superfluous effort because sql does that for you
+            string output = "";
+            DateTime decisionDate = new DateTime();
+            int yyyy, mm, dd;
+
+            decisionDate = DateTime.Now;
+            string dateString = decisionDate.ToString();
+            string[] dateTokens = dateString.Split('/', ' ');
+            int.TryParse(dateTokens[2], out yyyy);
+            int.TryParse(dateTokens[0], out mm);
+            int.TryParse(dateTokens[1], out dd);
+
+            output = yyyy.ToString() + "-" + mm.ToString("d2") + "-" + dd.ToString("d2");
+            return output;
+        }
+
+        private void DateToTable()
+        {
+            sql = "UPDATE Restaurants "+
+                "Set LastVisit = Date() "+
+                "WHERE Name = @name";
+            conn.Open();
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@name", Glb.gSelectedRestaurant);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
         private void btnDecide_Click(object sender, EventArgs e)
         {
             if (radUser.Checked)//manual decision
             {
+                if (lstMain.SelectedIndex == -1)
+                {
+                    System.Media.SystemSounds.Beep.Play();
+                    MessageBox.Show("You must make a selection from the list to Decide.",
+                        "\"You can't just decide.\"");
+                    return;
+                }
+
                 if (Glb.gDecisionStage == 0)//...from a fresh start
                 {
                     Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
@@ -142,6 +180,7 @@ namespace CS292Final_Kemerly
                 btnDecide.Enabled = false;
                 btnEndorse.Enabled = false;
                 lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
+                DateToTable();
             }
         }
 
