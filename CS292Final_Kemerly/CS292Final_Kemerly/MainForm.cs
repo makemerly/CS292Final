@@ -16,7 +16,7 @@ namespace CS292Final_Kemerly
         //SQLite Goodness
         private const string dbRestaurants = "Data Source = ../../restaurants.db; version = 3";
         SQLiteConnection conn = new SQLiteConnection(dbRestaurants);
-        SQLiteDataAdapter dataAdapter;
+        SQLiteDataAdapter da;
         SQLiteCommand cmd;
         DataSet ds = new DataSet();
         string sql;
