@@ -29,7 +29,7 @@ namespace CS292Final_Kemerly
 
         private void DisplayTable()
         {
-            sql = "Select * FROM Restaurants";
+            sql = "Select Name, LastVisit FROM Restaurants";
             ds = new DataSet();
             da = new SQLiteDataAdapter(sql, conn);            
             conn.Open();
@@ -41,9 +41,32 @@ namespace CS292Final_Kemerly
 
         private void SortTable()
         {// this is probably stupid. i can probably do this more elgantly with sql commands.
+            //but it works, so.
             DataGridViewColumn LastVisit = new DataGridViewColumn();
             LastVisit = dgvHistory.Columns["LastVisit"];
             dgvHistory.Sort(LastVisit, ListSortDirection.Descending);
+        }
+
+        private void DeleteEntry(string inpName)
+        {
+            sql = "UPDATE Restaurants " +
+                "Set LastVisit = NULL " +
+                "WHERE Name = @name";
+            conn.Open();
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@name", inpName);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        private void DeleteHistory()
+        {
+            sql = "UPDATE Restaurants " +
+                "Set LastVisit = NULL";
+            conn.Open();
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
 
         private void chkHistoryVeto_CheckedChanged(object sender, EventArgs e)
@@ -54,7 +77,8 @@ namespace CS292Final_Kemerly
         
         private void History_Load(object sender, EventArgs e)
         {
-            
+            DisplayTable();
+            SortTable();
         }
 
         private void btnOkay_Click(object sender, EventArgs e)
@@ -64,7 +88,19 @@ namespace CS292Final_Kemerly
 
         private void btnDeleteEntry_Click(object sender, EventArgs e)
         {
+            if (dgvHistory.SelectedRows.Count <= 0)
+            {
+                System.Media.SystemSounds.Beep.Play();
+                //get some kind of error message in here.
+                return;
+            }
+            string selectedName = dgvHistory.SelectedRows[0].Cells["Name"].Value.ToString();
+            //is the date null? does it matter? probably not.
+            DeleteEntry(selectedName);
 
+
+            
+            
         }
 
         private void btnClearHistory_Click(object sender, EventArgs e)

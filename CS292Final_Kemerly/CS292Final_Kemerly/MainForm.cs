@@ -192,7 +192,8 @@ namespace CS292Final_Kemerly
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
-
+            var frmHistory = new History();
+            frmHistory.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
