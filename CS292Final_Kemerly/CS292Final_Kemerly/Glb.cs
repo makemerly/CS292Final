@@ -12,7 +12,7 @@ namespace CS292Final_Kemerly
 
         /*decisionStage -
          * 0:fresh, 1:categories endorsed, 2: category selected
-         * 3:names endorsed 4:final     */
+         * 3:names endorsed 4:final/name endorsed     */
 
         public static int gDecisionStage = 0;
         public static List<CatStruct> gCatList = new List<CatStruct>();
@@ -21,6 +21,8 @@ namespace CS292Final_Kemerly
         public static List<string> gRestDecisionList = new List<string>();
         public static string gSelectedCategory = "";
         public static string gSelectedRestaurant = "";
+        public static bool autoVetoEnabled = false;
+        public static string autoVetoString = "";
 
         public struct CatStruct//"Category Structure"
         {

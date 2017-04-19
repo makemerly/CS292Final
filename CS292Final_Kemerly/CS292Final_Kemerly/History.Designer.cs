@@ -145,6 +145,7 @@
             this.MaximizeBox = false;
             this.Name = "History";
             this.Text = "History";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.History_FormClosing);
             this.Load += new System.EventHandler(this.History_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHistoryVeto)).EndInit();

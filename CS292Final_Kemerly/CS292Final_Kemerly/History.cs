@@ -47,6 +47,38 @@ namespace CS292Final_Kemerly
             dgvHistory.Sort(LastVisit, ListSortDirection.Descending);
         }
 
+        private void DisableDGVSorting(DataGridView intTable)
+        {//pieced together with help from google -- does not work.
+            for (int i = 0; i < intTable.Columns.Count; i++)
+            {
+                intTable.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
+            }
+        }
+
+        private string GetAutoVetoList()
+        {
+            string output = "";
+            
+            using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
+            {
+                conn.Open();
+                string sql = "SELECT * FROM Restaurants ORDER BY LastVisit DESC LIMIT " + 
+                    numHistoryVeto.Value.ToString() ;
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            output += reader["Name"].ToString() + ",";                            
+                        }
+                    }
+                }
+            }
+            output = output.Remove(output.Length-1,1);
+            return output;
+        }
+
         private void DeleteEntry(string inpName)
         {
             sql = "UPDATE Restaurants " +
@@ -73,17 +105,20 @@ namespace CS292Final_Kemerly
         {
             numHistoryVeto.Enabled = chkHistoryVeto.Checked;
             label1.Enabled = chkHistoryVeto.Checked;
+            Glb.autoVetoEnabled = chkHistoryVeto.Checked;
         }
         
         private void History_Load(object sender, EventArgs e)
         {
             DisplayTable();
             SortTable();
+            //DisableDGVSorting(dgvHistory);
         }
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-
+            //string dudebuddy = GetAutoVetoList();
+            //MessageBox.Show(dudebuddy);
         }
 
         private void btnDeleteEntry_Click(object sender, EventArgs e)
@@ -106,6 +141,14 @@ namespace CS292Final_Kemerly
         private void btnClearHistory_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void History_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (chkHistoryVeto.Checked)
+            {
+                Glb.autoVetoString = GetAutoVetoList();
+            }
         }
     }
 }
