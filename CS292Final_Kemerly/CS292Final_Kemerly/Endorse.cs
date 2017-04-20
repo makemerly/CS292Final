@@ -30,7 +30,13 @@ namespace CS292Final_Kemerly
             {
                 foreach(Glb.RestStruct rest in Glb.gRestList)
                 {//populating the list
-                    lstEndorse.Items.Add("(" + rest.weight.ToString("n1") + ") " + rest.name);
+                    string endorsement = "";
+                    endorsement = "(" + rest.weight.ToString("n1") + ") " + rest.name;
+                    if (rest.weight == 0 && Glb.autoVetoEnabled)
+                    {
+                        endorsement += " (AUTO-VETOED)";
+                    }
+                    lstEndorse.Items.Add(endorsement);
                 }
             }
         }
@@ -78,7 +84,13 @@ namespace CS292Final_Kemerly
             string output;
             double weight = 0;
             int index = lstEndorse.SelectedIndex;
-                        
+
+            if (lstEndorse.SelectedItem.ToString().Contains("VETO"))
+            {
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Auto-veto settings will override this action.", "Whoops!");
+                return;
+            }
             if (radW10.Checked)
             {
                 weight = 1.0;

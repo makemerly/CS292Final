@@ -22,7 +22,7 @@ namespace CS292Final_Kemerly
         public static string gSelectedCategory = "";
         public static string gSelectedRestaurant = "";
         public static bool autoVetoEnabled = false;
-        public static string autoVetoString = "";
+        public static string[] autoVetoString;
 
         public struct CatStruct//"Category Structure"
         {

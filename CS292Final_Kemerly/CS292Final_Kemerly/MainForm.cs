@@ -62,23 +62,44 @@ namespace CS292Final_Kemerly
 
             return outList;
         }
+        private List<Glb.RestStruct> AutoVetoEnforced(List<Glb.RestStruct> inpList)
+        {
+            var dumbList = new List<Glb.RestStruct>();
 
-        private string DateNowToString()
-        {//lol, superfluous effort because sql does that for you
-            string output = "";
-            DateTime decisionDate = new DateTime();
-            int yyyy, mm, dd;
-
-            decisionDate = DateTime.Now;
-            string dateString = decisionDate.ToString();
-            string[] dateTokens = dateString.Split('/', ' ');
-            int.TryParse(dateTokens[2], out yyyy);
-            int.TryParse(dateTokens[0], out mm);
-            int.TryParse(dateTokens[1], out dd);
-
-            output = yyyy.ToString() + "-" + mm.ToString("d2") + "-" + dd.ToString("d2");
-            return output;
+            foreach (Glb.RestStruct rest in inpList)
+            {
+                var dumbRest = new Glb.RestStruct();
+                dumbRest.name = rest.name;
+                dumbRest.weight = rest.weight;
+                foreach (string veto in Glb.autoVetoString)
+                {
+                    if (veto == rest.name)
+                    {
+                        dumbRest.weight = 0.0;
+                        break;
+                    }
+                }
+                dumbList.Add(dumbRest);
+            }
+            return dumbList;
         }
+
+        //private string DateNowToString()
+        //{//lol, superfluous effort because sql does that for you
+        //    string output = "";
+        //    DateTime decisionDate = new DateTime();
+        //    int yyyy, mm, dd;
+
+        //    decisionDate = DateTime.Now;
+        //    string dateString = decisionDate.ToString();
+        //    string[] dateTokens = dateString.Split('/', ' ');
+        //    int.TryParse(dateTokens[2], out yyyy);
+        //    int.TryParse(dateTokens[0], out mm);
+        //    int.TryParse(dateTokens[1], out dd);
+
+        //    output = yyyy.ToString() + "-" + mm.ToString("d2") + "-" + dd.ToString("d2");
+        //    return output;
+        //}
 
         private void DateToTable()
         {
@@ -149,20 +170,18 @@ namespace CS292Final_Kemerly
                     int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
                     //category decision is made
-                    //Glb.gDecisionStage = 2;
-                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
-                    
                 }
                 if (Glb.gDecisionStage == 3)
                 { //populate weighted list. randomly select index = selected restaurant.
+                    if (Glb.autoVetoEnabled)
+                    {
+                        Glb.gRestList = AutoVetoEnforced(Glb.gRestList);
+                    }
                     Glb.gRestDecisionList = MakeRestDecList(Glb.gRestList);
                     Random randal = new Random();
                     int decisionIndex = randal.Next(0, Glb.gRestDecisionList.Count);
                     Glb.gSelectedRestaurant = Glb.gRestDecisionList[decisionIndex];
-                    //restaurant decision is made
-                    //Glb.gDecisionStage = 4;
-                    //lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
-                    //need to lock out other features now.
+                    //restaurant decision is made                    
                 }
             }
             if (Glb.gDecisionStage < 2 && 
@@ -226,7 +245,18 @@ namespace CS292Final_Kemerly
                     Glb.RestStruct jones;//"...none of this matters."
                     jones.name = restName;
                     jones.weight = 1;
+                    if (Glb.autoVetoEnabled)
+                    {
+                        foreach (string veto in Glb.autoVetoString)
+                        {
+                            if (veto == restName)
+                            {
+                                jones.weight = 0;
+                                break;
+                            }
+                        }
                     Glb.gRestList.Add(jones);
+                    }
                 }
             }
             //show window

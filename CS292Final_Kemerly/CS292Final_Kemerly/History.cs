@@ -55,9 +55,9 @@ namespace CS292Final_Kemerly
             }
         }
 
-        private string GetAutoVetoList()
+        private string[] GetAutoVetoList()
         {
-            string output = "";
+            string preOutput = "";
             
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {
@@ -70,12 +70,13 @@ namespace CS292Final_Kemerly
                     {
                         while (reader.Read())
                         {
-                            output += reader["Name"].ToString() + ",";                            
+                            preOutput += reader["Name"].ToString() + ",";                            
                         }
                     }
                 }
             }
-            output = output.Remove(output.Length-1,1);
+            preOutput = preOutput.Remove(preOutput.Length-1,1);
+            string[] output = preOutput.Split(',');
             return output;
         }
 
@@ -148,6 +149,11 @@ namespace CS292Final_Kemerly
             if (chkHistoryVeto.Checked)
             {
                 Glb.autoVetoString = GetAutoVetoList();
+                Glb.autoVetoEnabled = true;
+            }
+            if (!chkHistoryVeto.Checked)
+            {
+                Glb.autoVetoEnabled = false;
             }
         }
     }
