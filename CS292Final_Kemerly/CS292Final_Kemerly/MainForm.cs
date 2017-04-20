@@ -112,7 +112,7 @@ namespace CS292Final_Kemerly
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-
+        
         private void btnDecide_Click(object sender, EventArgs e)
         {
             if (radUser.Checked)//manual decision
@@ -165,18 +165,88 @@ namespace CS292Final_Kemerly
                 }
                 if (Glb.gDecisionStage == 1)
                 {//populate weighted list. randomly select index = selected category.
+                    double totalweight = 0; //retard testing
+                    foreach (Glb.CatStruct cat in Glb.gCatList)
+                    {
+                        totalweight += cat.weight;
+                    }
+                    if (totalweight == 0)
+                    {
+                        System.Media.SystemSounds.Beep.Play();
+                        DialogResult whyDammitWhy = MessageBox.Show("All candidate weights are zero. " +
+                            "Ignore weights?", "What.", MessageBoxButtons.YesNo);
+                        if (whyDammitWhy == DialogResult.Yes)
+                        {
+                            //convert all weights to 1
+                            var dummyList = new List<Glb.CatStruct>();
+                            foreach (Glb.CatStruct cat in Glb.gCatList)
+                            {
+                                var dummyCat = new Glb.CatStruct();
+                                dummyCat.category = cat.category;
+                                dummyCat.weight = 1;
+                                dummyList.Add(dummyCat);
+                            }
+                            for (int i = 0; i < Glb.gCatList.Count; i++)
+                            {
+                                Glb.gCatList.RemoveAt(i);
+                                Glb.gCatList.Insert(i, dummyList[i]);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Reevaluate your endorsements and vetoes.", "You can fix this.");
+                            return;
+                        }
+                    }
                     Glb.gCatDecisionList = MakeCatDecList(Glb.gCatList);
                     Random randal = new Random();
                     int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
                     //category decision is made
                 }
-                if (Glb.gDecisionStage == 3)
-                { //populate weighted list. randomly select index = selected restaurant.
+                if (Glb.gDecisionStage == 3)//populate weighted list. random index = selected restaurant.
+                {//if auto veto is enabled, enforce it.
                     if (Glb.autoVetoEnabled)
                     {
                         Glb.gRestList = AutoVetoEnforced(Glb.gRestList);
                     }
+
+                    //check for edge case- if all decision candidates have 0 weight, option: ignore or error.
+                    double totalWeight = 0;
+                    foreach (Glb.RestStruct rest in Glb.gRestList)
+                    {
+                        totalWeight += rest.weight;
+                    }
+                    if (totalWeight == 0)
+                    {
+                        System.Media.SystemSounds.Beep.Play();
+                        DialogResult whyDammitWhy = MessageBox.Show("All candidate weights are zero. " +
+                            "Ignore weights?", "What.", MessageBoxButtons.YesNo);
+                        if (whyDammitWhy == DialogResult.Yes)
+                        {
+                            //convert all weights to 1
+                            var dummyList = new List<Glb.RestStruct>();
+                            foreach (Glb.RestStruct rest in Glb.gRestList)
+                            {
+                                var dummyRest = new Glb.RestStruct();
+                                dummyRest.name = rest.name;
+                                dummyRest.weight = 1;
+                                dummyList.Add(dummyRest);
+                            }
+                            for (int i = 0; i < Glb.gRestList.Count; i++)
+                            {
+                                Glb.gRestList.RemoveAt(i);
+                                Glb.gRestList.Insert(i, dummyList[i]);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Reevaluate your endorsements and vetoes.", "You can fix this.");
+                            return;
+                        }
+                    }
+
+
                     Glb.gRestDecisionList = MakeRestDecList(Glb.gRestList);
                     Random randal = new Random();
                     int decisionIndex = randal.Next(0, Glb.gRestDecisionList.Count);
@@ -255,8 +325,8 @@ namespace CS292Final_Kemerly
                                 break;
                             }
                         }
-                    Glb.gRestList.Add(jones);
                     }
+                    Glb.gRestList.Add(jones);
                 }
             }
             //show window

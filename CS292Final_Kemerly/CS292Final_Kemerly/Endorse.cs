@@ -31,7 +31,7 @@ namespace CS292Final_Kemerly
                 foreach(Glb.RestStruct rest in Glb.gRestList)
                 {//populating the list
                     string endorsement = "";
-                    endorsement = "(" + rest.weight.ToString("n1") + ") " + rest.name;
+                    endorsement += "(" + rest.weight.ToString("n1") + ") " + rest.name;
                     if (rest.weight == 0 && Glb.autoVetoEnabled)
                     {
                         endorsement += " (AUTO-VETOED)";
@@ -163,7 +163,7 @@ namespace CS292Final_Kemerly
                     Glb.gRestList.Add(temp);
                 }
                 Glb.gDecisionStage = 3;
-            }
+            }            
         }
     }
 }
