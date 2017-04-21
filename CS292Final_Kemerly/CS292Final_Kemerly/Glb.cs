@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CS292Final_Kemerly
 {
-    class Glb
+    public class Glb
     {
         //global stuff
 
@@ -22,7 +22,7 @@ namespace CS292Final_Kemerly
         public static string gSelectedCategory = "";
         public static string gSelectedRestaurant = "";
         public static bool autoVetoEnabled = false;
-        public static string[] autoVetoString;
+        public static List<string> autoVetoList = new List<string>();
 
         public struct CatStruct//"Category Structure"
         {

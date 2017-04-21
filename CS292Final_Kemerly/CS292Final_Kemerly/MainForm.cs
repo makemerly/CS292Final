@@ -71,7 +71,7 @@ namespace CS292Final_Kemerly
                 var dumbRest = new Glb.RestStruct();
                 dumbRest.name = rest.name;
                 dumbRest.weight = rest.weight;
-                foreach (string veto in Glb.autoVetoString)
+                foreach (string veto in Glb.autoVetoList)
                 {
                     if (veto == rest.name)
                     {
@@ -271,13 +271,27 @@ namespace CS292Final_Kemerly
                 lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
                 DateToTable();
             }
-        }
+        }//end Decide click
 
         
         private void btnReset_Click(object sender, EventArgs e)
-        {
+        {//reset the form and all progress
+            lblStatus.Text = "";
+            Glb.gDecisionStage = 0;
+            Glb.gCatList = new List<Glb.CatStruct>();
+            Glb.gCatDecisionList = new List<string>();
+            Glb.gRestList = new List<Glb.RestStruct>();
+            Glb.gRestDecisionList = new List<string>();
+            Glb.gSelectedCategory = "";
+            Glb.gSelectedRestaurant = "";
+            Glb.autoVetoEnabled = false;
+            Glb.autoVetoList = new List<string>();
+            radComputer.Checked = true;
+            btnDecide.Enabled = true;
+            btnEndorse.Enabled = true;
+            CategoryListBox();
 
-        }
+    }
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
@@ -317,7 +331,7 @@ namespace CS292Final_Kemerly
                     jones.weight = 1;
                     if (Glb.autoVetoEnabled)
                     {
-                        foreach (string veto in Glb.autoVetoString)
+                        foreach (string veto in Glb.autoVetoList)
                         {
                             if (veto == restName)
                             {

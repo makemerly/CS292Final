@@ -55,7 +55,7 @@ namespace CS292Final_Kemerly
             }
         }
 
-        private string[] GetAutoVetoList()
+        private List<string> GetAutoVetoList()
         {
             string preOutput = "";
             
@@ -76,7 +76,12 @@ namespace CS292Final_Kemerly
                 }
             }
             preOutput = preOutput.Remove(preOutput.Length-1,1);
-            string[] output = preOutput.Split(',');
+            string[] arrayOutput = preOutput.Split(',');
+            var output = new List<string>();
+            foreach (string s in arrayOutput)
+            {
+                output.Add(s);
+            }
             return output;
         }
 
@@ -148,7 +153,7 @@ namespace CS292Final_Kemerly
         {
             if (chkHistoryVeto.Checked)
             {
-                Glb.autoVetoString = GetAutoVetoList();
+                Glb.autoVetoList = GetAutoVetoList();
                 Glb.autoVetoEnabled = true;
             }
             if (!chkHistoryVeto.Checked)
