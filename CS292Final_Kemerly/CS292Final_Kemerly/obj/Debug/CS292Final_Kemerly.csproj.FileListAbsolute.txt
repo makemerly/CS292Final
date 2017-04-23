@@ -18,3 +18,23 @@ C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Deb
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Endorse.resources
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.MainForm.resources
 C:\VC# Projects (Local)\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.AddDel.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.exe.config
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.exe
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.pdb
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.exe
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\CS292Final_Kemerly.pdb
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\EntityFramework.dll
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\System.Data.SQLite.dll
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\EntityFramework.xml
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\bin\Debug\System.Data.SQLite.xml
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.csprojResolveAssemblyReference.cache
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.AddDel.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Endorse.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.MainForm.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.History.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.Properties.Resources.resources
+C:\Users\Matt Kemerly\Documents\CS292Final\CS292Final_Kemerly\CS292Final_Kemerly\obj\Debug\CS292Final_Kemerly.csproj.GenerateResource.Cache

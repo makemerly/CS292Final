@@ -47,7 +47,7 @@ namespace CS292Final_Kemerly
                     }
                 }
             }
-        }
+        }// end GetCategories
 
         private void GetNames()
         {
@@ -72,7 +72,7 @@ namespace CS292Final_Kemerly
                     }
                 }
             }
-        }
+        }//end GetNames
 
         private void DelRestaurant()
         {
@@ -82,6 +82,18 @@ namespace CS292Final_Kemerly
             cmd.Parameters.AddWithValue("@name", cmbName.SelectedItem);
             cmd.ExecuteNonQuery();
             conn.Close();
+        }
+
+        private bool GoodCombo(ComboBox inpCombo)
+        {   
+            if (inpCombo.SelectedIndex == -1)
+            {
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("Make a selection from the "+ inpCombo.Tag + ".",
+                    "Whoa there.");
+                return false;
+            }
+            return true;
         }
 
         private void AddRestaurant(string name, string category, string date)
@@ -117,7 +129,11 @@ namespace CS292Final_Kemerly
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (cmbName.SelectedIndex != -1)
+            if (!GoodCombo(cmbName))
+            {                
+                return;
+            }
+            else
             {
                 System.Media.SystemSounds.Beep.Play();
                 DialogResult whyDammitWhy = MessageBox.Show("Permanently remove " +
@@ -125,7 +141,7 @@ namespace CS292Final_Kemerly
                            "Whoa, there.", MessageBoxButtons.YesNo);
                 if (whyDammitWhy == DialogResult.Yes)
                 {
-                    DelRestaurant();//untested
+                    DelRestaurant();
                 }
                 else
                 {
@@ -166,14 +182,14 @@ namespace CS292Final_Kemerly
             int yyyy = 0 , mm = 0, dd = 0;
             bool dateNull = false;
 
-            if (cmbAddCategory.SelectedIndex == -1)
+            if (!GoodCombo(cmbAddCategory))
             {
-                //error
                 return;
             }
             if (txtAddName.Text == "")
             {
-                //error
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("You must enter a Restaurant Name to add a record.", "Whoa, there.");
                 return;
             }
             wipDate = mtxtAddLastVisit.Text.Split('/');
@@ -181,12 +197,23 @@ namespace CS292Final_Kemerly
                 !int.TryParse(wipDate[1], out mm) ||
                 !int.TryParse(wipDate[2], out dd))
             {
-                dateNull = true;
+                System.Media.SystemSounds.Beep.Play();
+                DialogResult whyDammitWhy = MessageBox.Show("Invalid Last Visit date. " +
+                    "Skip date entry for this record?",
+                           "Whoa, there.", MessageBoxButtons.YesNo);
+                if (whyDammitWhy == DialogResult.Yes)
+                {
+                    dateNull = true;
+                }
+                else //if dialogresult == no
+                {
+                    return;
+                }
             }
             category = cmbAddCategory.SelectedItem.ToString();
             name = txtAddName.Text;
             if (!dateNull)
-            { date = yyyy.ToString() + "/" + mm.ToString("n2") + "/" + dd.ToString("n2"); }
+            { date = yyyy.ToString() + "/" + mm.ToString("d2") + "/" + dd.ToString("d2"); }
             else
             { date = null; }
             try
@@ -195,10 +222,12 @@ namespace CS292Final_Kemerly
             }
             catch
             {
-                //error
+                System.Media.SystemSounds.Beep.Play();
+                MessageBox.Show("There was an error adding the entry to the collection.",
+                    "Whoa, there.");
                 return;
             }
             
-        }
+        }//end add click
     }
 }

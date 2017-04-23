@@ -47,13 +47,13 @@ namespace CS292Final_Kemerly
             dgvHistory.Sort(LastVisit, ListSortDirection.Descending);
         }
 
-        private void DisableDGVSorting(DataGridView intTable)
-        {//pieced together with help from google -- does not work.
-            for (int i = 0; i < intTable.Columns.Count; i++)
-            {
-                intTable.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
-            }
-        }
+        //private void DisableDGVSorting(DataGridView intTable)
+        //{//pieced together with help from google -- does not work.
+        //    for (int i = 0; i < intTable.Columns.Count; i++)
+        //    {
+        //        intTable.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
+        //    }
+        //}
 
         private List<string> GetAutoVetoList()
         {
@@ -127,7 +127,7 @@ namespace CS292Final_Kemerly
         }
 
         private void btnDeleteEntry_Click(object sender, EventArgs e)
-        {
+        {//delete date from single entry
             if (dgvHistory.SelectedRows.Count <= 0)
             {
                 System.Media.SystemSounds.Beep.Play();
@@ -143,7 +143,7 @@ namespace CS292Final_Kemerly
         }
 
         private void btnClearHistory_Click(object sender, EventArgs e)
-        {
+        {//delete dates from ALL entries
             System.Media.SystemSounds.Beep.Play();
             DialogResult whyDammitWhy = MessageBox.Show("This will irreversibly delete all history entries." +
                 " Continue anyway?", "Hold on.", MessageBoxButtons.YesNo);

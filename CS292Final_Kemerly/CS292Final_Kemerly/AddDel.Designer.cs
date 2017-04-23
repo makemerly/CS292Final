@@ -38,14 +38,14 @@
             this.radAdd = new System.Windows.Forms.RadioButton();
             this.radDel = new System.Windows.Forms.RadioButton();
             this.pnlAdd = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.mtxtAddLastVisit = new System.Windows.Forms.MaskedTextBox();
+            this.txtAddName = new System.Windows.Forms.TextBox();
+            this.cmbAddCategory = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.cmbAddCategory = new System.Windows.Forms.ComboBox();
-            this.txtAddName = new System.Windows.Forms.TextBox();
-            this.mtxtAddLastVisit = new System.Windows.Forms.MaskedTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.pnlDelete.SuspendLayout();
             this.pnlAdd.SuspendLayout();
             this.SuspendLayout();
@@ -109,6 +109,7 @@
             this.cmbName.Name = "cmbName";
             this.cmbName.Size = new System.Drawing.Size(121, 21);
             this.cmbName.TabIndex = 1;
+            this.cmbName.Tag = "Restaurant Name dropdown menu";
             // 
             // cmbDelCategory
             // 
@@ -118,6 +119,7 @@
             this.cmbDelCategory.Name = "cmbDelCategory";
             this.cmbDelCategory.Size = new System.Drawing.Size(121, 21);
             this.cmbDelCategory.TabIndex = 0;
+            this.cmbDelCategory.Tag = "Restaurant Category dropdown menu";
             this.cmbDelCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
             // 
             // radAdd
@@ -158,6 +160,52 @@
             this.pnlAdd.Size = new System.Drawing.Size(260, 181);
             this.pnlAdd.TabIndex = 4;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Enabled = false;
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label6.Location = new System.Drawing.Point(133, 80);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "(YYYY/MM/DD)";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 60);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(115, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Last Visit (Optional):     ";
+            // 
+            // mtxtAddLastVisit
+            // 
+            this.mtxtAddLastVisit.Location = new System.Drawing.Point(136, 57);
+            this.mtxtAddLastVisit.Mask = "0000/00/00";
+            this.mtxtAddLastVisit.Name = "mtxtAddLastVisit";
+            this.mtxtAddLastVisit.Size = new System.Drawing.Size(121, 20);
+            this.mtxtAddLastVisit.TabIndex = 6;
+            // 
+            // txtAddName
+            // 
+            this.txtAddName.Location = new System.Drawing.Point(136, 30);
+            this.txtAddName.Name = "txtAddName";
+            this.txtAddName.Size = new System.Drawing.Size(121, 20);
+            this.txtAddName.TabIndex = 5;
+            // 
+            // cmbAddCategory
+            // 
+            this.cmbAddCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAddCategory.FormattingEnabled = true;
+            this.cmbAddCategory.Location = new System.Drawing.Point(136, 3);
+            this.cmbAddCategory.Name = "cmbAddCategory";
+            this.cmbAddCategory.Size = new System.Drawing.Size(121, 21);
+            this.cmbAddCategory.TabIndex = 4;
+            this.cmbAddCategory.Tag = "Restaurant Category dropdown menu";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -185,51 +233,6 @@
             this.label4.Size = new System.Drawing.Size(122, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "Restaurant Category:     ";
-            // 
-            // cmbAddCategory
-            // 
-            this.cmbAddCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAddCategory.FormattingEnabled = true;
-            this.cmbAddCategory.Location = new System.Drawing.Point(136, 3);
-            this.cmbAddCategory.Name = "cmbAddCategory";
-            this.cmbAddCategory.Size = new System.Drawing.Size(121, 21);
-            this.cmbAddCategory.TabIndex = 4;
-            // 
-            // txtAddName
-            // 
-            this.txtAddName.Location = new System.Drawing.Point(136, 30);
-            this.txtAddName.Name = "txtAddName";
-            this.txtAddName.Size = new System.Drawing.Size(121, 20);
-            this.txtAddName.TabIndex = 5;
-            // 
-            // mtxtAddLastVisit
-            // 
-            this.mtxtAddLastVisit.Location = new System.Drawing.Point(136, 57);
-            this.mtxtAddLastVisit.Mask = "0000/00/00";
-            this.mtxtAddLastVisit.Name = "mtxtAddLastVisit";
-            this.mtxtAddLastVisit.Size = new System.Drawing.Size(121, 20);
-            this.mtxtAddLastVisit.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 60);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(115, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Last Visit (Optional):     ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Enabled = false;
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(133, 80);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "(YYYY/MM/DD)";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // AddDel
             // 
