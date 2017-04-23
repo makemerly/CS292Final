@@ -123,8 +123,7 @@ namespace CS292Final_Kemerly
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            //string dudebuddy = GetAutoVetoList();
-            //MessageBox.Show(dudebuddy);
+            this.Close();
         }
 
         private void btnDeleteEntry_Click(object sender, EventArgs e)
@@ -132,21 +131,28 @@ namespace CS292Final_Kemerly
             if (dgvHistory.SelectedRows.Count <= 0)
             {
                 System.Media.SystemSounds.Beep.Play();
-                //get some kind of error message in here.
+                MessageBox.Show("No selection. Click an entry in the table, then the delete button.",
+                    "Hold on.");
                 return;
             }
             string selectedName = dgvHistory.SelectedRows[0].Cells["Name"].Value.ToString();
             //is the date null? does it matter? probably not.
             DeleteEntry(selectedName);
-
-
-            
-            
+            DisplayTable();
+            SortTable();
         }
 
         private void btnClearHistory_Click(object sender, EventArgs e)
         {
-
+            System.Media.SystemSounds.Beep.Play();
+            DialogResult whyDammitWhy = MessageBox.Show("This will irreversibly delete all history entries." +
+                " Continue anyway?", "Hold on.", MessageBoxButtons.YesNo);
+            if (whyDammitWhy == DialogResult.Yes)
+            {
+                DeleteHistory();
+                DisplayTable();
+                SortTable();
+            }
         }
 
         private void History_FormClosing(object sender, FormClosingEventArgs e)

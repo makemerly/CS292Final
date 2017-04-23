@@ -38,7 +38,7 @@
             this.btnEndorse = new System.Windows.Forms.Button();
             this.btnHistory = new System.Windows.Forms.Button();
             this.lstMain = new System.Windows.Forms.ListBox();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnAddDel = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.grpWhoDecides.SuspendLayout();
             this.SuspendLayout();
@@ -143,22 +143,22 @@
             this.lstMain.Size = new System.Drawing.Size(252, 160);
             this.lstMain.TabIndex = 6;
             // 
-            // btnEdit
+            // btnAddDel
             // 
-            this.btnEdit.Location = new System.Drawing.Point(179, 245);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(85, 23);
-            this.btnEdit.TabIndex = 3;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnAddDel.Location = new System.Drawing.Point(179, 245);
+            this.btnAddDel.Name = "btnAddDel";
+            this.btnAddDel.Size = new System.Drawing.Size(85, 23);
+            this.btnAddDel.TabIndex = 3;
+            this.btnAddDel.Text = "Add/Remove";
+            this.btnAddDel.UseVisualStyleBackColor = true;
+            this.btnAddDel.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(275, 331);
-            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnAddDel);
             this.Controls.Add(this.lstMain);
             this.Controls.Add(this.btnHistory);
             this.Controls.Add(this.btnEndorse);
@@ -191,7 +191,7 @@
         private System.Windows.Forms.Button btnEndorse;
         private System.Windows.Forms.Button btnHistory;
         private System.Windows.Forms.ListBox lstMain;
-        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnAddDel;
     }
 }
 

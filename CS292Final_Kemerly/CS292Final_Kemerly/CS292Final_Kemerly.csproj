@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDel.Designer.cs">
+      <DependentUpon>AddDel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Endorse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddDel.resx">
+      <DependentUpon>AddDel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Endorse.resx">
       <DependentUpon>Endorse.cs</DependentUpon>
     </EmbeddedResource>

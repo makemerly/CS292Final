@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* Matt Kemerly
+ * Final Project
+ * Due 4/26/17
+ * Some context on "The Decider":
+ * https://www.youtube.com/watch?v=zSF5Epnpkns
+ * nsfw-ish: mild language, drunk poorly-animated characters
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -121,7 +128,7 @@ namespace CS292Final_Kemerly
                 {
                     System.Media.SystemSounds.Beep.Play();
                     MessageBox.Show("You must make a selection from the list to Decide.",
-                        "\"You can't just decide.\"");
+                        "\"That wasn't a decision that was made here.\"");
                     return;
                 }
 
@@ -152,7 +159,7 @@ namespace CS292Final_Kemerly
                     string name = tokens[1];
                     Glb.gSelectedRestaurant = name.Trim();
                 }
-            }
+            }// end manual decision
             if (radComputer.Checked)//app decides
             {
                 if (Glb.gDecisionStage == 0 ||
@@ -160,7 +167,8 @@ namespace CS292Final_Kemerly
                 {
                     System.Media.SystemSounds.Beep.Play();
                     MessageBox.Show("Click the Endorse/Veto button to set up endorsements and vetoes "
-                        + "so The Decider can make an informed Decision.", "\"You can't just decide.\"");
+                        + "so The Decider can make an informed Decision.",
+                        "\"That wasn't a decision that was made here.\"");
                     return;
                 }
                 if (Glb.gDecisionStage == 1)
@@ -203,7 +211,7 @@ namespace CS292Final_Kemerly
                     int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
                     //category decision is made
-                }
+                }// end stage 1
                 if (Glb.gDecisionStage == 3)//populate weighted list. random index = selected restaurant.
                 {//if auto veto is enabled, enforce it.
                     if (Glb.autoVetoEnabled)
@@ -252,8 +260,9 @@ namespace CS292Final_Kemerly
                     int decisionIndex = randal.Next(0, Glb.gRestDecisionList.Count);
                     Glb.gSelectedRestaurant = Glb.gRestDecisionList[decisionIndex];
                     //restaurant decision is made                    
-                }
-            }
+                }//end stage 3
+            }// end app decides
+            
             if (Glb.gDecisionStage < 2 && 
                 Glb.gSelectedCategory != "")
             {
@@ -270,6 +279,10 @@ namespace CS292Final_Kemerly
                 btnEndorse.Enabled = false;
                 lblStatus.Text = "You will eat at: " + Glb.gSelectedRestaurant + ".";
                 DateToTable();
+            }
+            if (Glb.gDecisionStage != 0)//really don't want to deal with deleting stuff from the table during process
+            {
+                btnAddDel.Enabled = false;
             }
         }//end Decide click
 
@@ -289,19 +302,20 @@ namespace CS292Final_Kemerly
             radComputer.Checked = true;
             btnDecide.Enabled = true;
             btnEndorse.Enabled = true;
+            btnAddDel.Enabled = true;
             CategoryListBox();
-
     }
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
-            var frmHistory = new History();
+            Form frmHistory = new History();
             frmHistory.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            Form frmAddDel = new AddDel();
+            frmAddDel.ShowDialog();
         }
 
         private void btnEndorse_Click(object sender, EventArgs e)
@@ -326,7 +340,7 @@ namespace CS292Final_Kemerly
                 //Name stuff
                 foreach (string restName in lstMain.Items)
                 {
-                    Glb.RestStruct jones;//"...none of this matters."
+                    Glb.RestStruct jones;//"...none of this matters." -- carl
                     jones.name = restName;
                     jones.weight = 1;
                     if (Glb.autoVetoEnabled)
@@ -347,6 +361,11 @@ namespace CS292Final_Kemerly
             frmEndorse.ShowDialog();
             //reconstruct lstMain based on decision stage
             lstMain.Items.Clear();
+
+            if (Glb.gDecisionStage != 0)//really don't want to deal with deleting stuff from the table during process
+            {
+                btnAddDel.Enabled = false;
+            }
             if (Glb.gDecisionStage < 2)
             {
                 foreach (Glb.CatStruct cat in Glb.gCatList)
