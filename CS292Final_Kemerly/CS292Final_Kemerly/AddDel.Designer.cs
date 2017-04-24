@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDone = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.pnlDelete = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,18 +46,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlDelete.SuspendLayout();
             this.pnlAdd.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnDone
             // 
-            this.button1.Location = new System.Drawing.Point(194, 219);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDone.Location = new System.Drawing.Point(194, 219);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(75, 23);
+            this.btnDone.TabIndex = 0;
+            this.btnDone.Text = "Done";
+            this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
             // btnDelete
             // 
@@ -88,26 +92,26 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(22, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Restaurant Name:     ";
+            this.label2.Text = "Restaurant Name:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(8, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 13);
+            this.label1.Size = new System.Drawing.Size(107, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Restaurant Category:     ";
+            this.label1.Text = "Restaurant Category:";
             // 
             // cmbName
             // 
             this.cmbName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbName.FormattingEnabled = true;
-            this.cmbName.Location = new System.Drawing.Point(136, 30);
+            this.cmbName.Location = new System.Drawing.Point(117, 30);
             this.cmbName.Name = "cmbName";
-            this.cmbName.Size = new System.Drawing.Size(121, 21);
+            this.cmbName.Size = new System.Drawing.Size(140, 21);
             this.cmbName.TabIndex = 1;
             this.cmbName.Tag = "Restaurant Name dropdown menu";
             // 
@@ -115,9 +119,9 @@
             // 
             this.cmbDelCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDelCategory.FormattingEnabled = true;
-            this.cmbDelCategory.Location = new System.Drawing.Point(136, 3);
+            this.cmbDelCategory.Location = new System.Drawing.Point(117, 3);
             this.cmbDelCategory.Name = "cmbDelCategory";
-            this.cmbDelCategory.Size = new System.Drawing.Size(121, 21);
+            this.cmbDelCategory.Size = new System.Drawing.Size(140, 21);
             this.cmbDelCategory.TabIndex = 0;
             this.cmbDelCategory.Tag = "Restaurant Category dropdown menu";
             this.cmbDelCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
@@ -234,14 +238,32 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Restaurant Category:     ";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 250);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(284, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(13, 17);
+            this.lblStatus.Text = "  ";
+            // 
             // AddDel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 249);
+            this.ClientSize = new System.Drawing.Size(284, 272);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.radDel);
             this.Controls.Add(this.radAdd);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDone);
             this.Controls.Add(this.pnlDelete);
             this.Controls.Add(this.pnlAdd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -249,12 +271,14 @@
             this.Name = "AddDel";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Edit";
+            this.Text = "Edit Collection";
             this.Load += new System.EventHandler(this.AddDel_Load);
             this.pnlDelete.ResumeLayout(false);
             this.pnlDelete.PerformLayout();
             this.pnlAdd.ResumeLayout(false);
             this.pnlAdd.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,7 +286,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDone;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Panel pnlDelete;
         private System.Windows.Forms.ComboBox cmbDelCategory;
@@ -280,5 +304,7 @@
         private System.Windows.Forms.MaskedTextBox mtxtAddLastVisit;
         private System.Windows.Forms.TextBox txtAddName;
         private System.Windows.Forms.ComboBox cmbAddCategory;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
     }
 }

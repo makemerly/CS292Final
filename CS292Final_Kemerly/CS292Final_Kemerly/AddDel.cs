@@ -27,7 +27,7 @@ namespace CS292Final_Kemerly
         }
 
         private void GetCategories(ComboBox inpCombo)
-        {
+        {//fills specified category dropdown
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {
                 conn.Open();
@@ -50,7 +50,7 @@ namespace CS292Final_Kemerly
         }// end GetCategories
 
         private void GetNames()
-        {
+        {//fills name dropdown
             cmbName.Items.Clear();
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {
@@ -75,7 +75,7 @@ namespace CS292Final_Kemerly
         }//end GetNames
 
         private void DelRestaurant()
-        {
+        {//deletes entry specified by cmbName from DB
             sql = "DELETE FROM Restaurants WHERE Name = @name";
             conn.Open();
             cmd = new SQLiteCommand(sql, conn);
@@ -85,7 +85,7 @@ namespace CS292Final_Kemerly
         }
 
         private bool GoodCombo(ComboBox inpCombo)
-        {   
+        {//because this is repeated
             if (inpCombo.SelectedIndex == -1)
             {
                 System.Media.SystemSounds.Beep.Play();
@@ -97,7 +97,7 @@ namespace CS292Final_Kemerly
         }
 
         private void AddRestaurant(string name, string category, string date)
-        {
+        {//adds entry to DB
             sql = "INSERT INTO Restaurants(Name, Category, LastVisit) " + 
                 "VALUES(@name, @category, @lastvisit)";
             conn.Open();
@@ -124,11 +124,13 @@ namespace CS292Final_Kemerly
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblStatus.Text = "";
             GetNames();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
-        {
+        {//deletes a selected entry from the DB
+            lblStatus.Text = "";
             if (!GoodCombo(cmbName))
             {                
                 return;
@@ -137,11 +139,22 @@ namespace CS292Final_Kemerly
             {
                 System.Media.SystemSounds.Beep.Play();
                 DialogResult whyDammitWhy = MessageBox.Show("Permanently remove " +
-                           cmbName.SelectedItem + "from the collection?",
+                           cmbName.SelectedItem + " from the collection?",
                            "Whoa, there.", MessageBoxButtons.YesNo);
                 if (whyDammitWhy == DialogResult.Yes)
                 {
-                    DelRestaurant();
+                    try
+                    {
+                        DelRestaurant();
+                        lblStatus.Text = "Entry deleted successfully.";
+                        cmbDelCategory.SelectedIndex = -1;
+                        cmbName.SelectedIndex = -1;
+                    }
+                    catch
+                    {
+                        lblStatus.Text = "Error deleting entry.";
+                        return;
+                    }
                 }
                 else
                 {
@@ -149,10 +162,11 @@ namespace CS292Final_Kemerly
                 }
             }
             GetNames();
-        }
+        }//end delete
 
         private void radAdd_CheckedChanged(object sender, EventArgs e)
         {
+            lblStatus.Text = "";
             cmbAddCategory.SelectedIndex = -1;
             cmbDelCategory.SelectedIndex = -1;
             
@@ -182,6 +196,8 @@ namespace CS292Final_Kemerly
             int yyyy = 0 , mm = 0, dd = 0;
             bool dateNull = false;
 
+            lblStatus.Text = "";
+
             if (!GoodCombo(cmbAddCategory))
             {
                 return;
@@ -193,9 +209,9 @@ namespace CS292Final_Kemerly
                 return;
             }
             wipDate = mtxtAddLastVisit.Text.Split('/');
-            if (!int.TryParse(wipDate[0], out yyyy) ||
-                !int.TryParse(wipDate[1], out mm) ||
-                !int.TryParse(wipDate[2], out dd))
+            if (!int.TryParse(wipDate[0], out yyyy) || yyyy.ToString().Length < 4 || yyyy < 2000 ||
+                !int.TryParse(wipDate[1], out mm) || mm.ToString("d2").Length < 2 || mm > 12 || mm <= 0 ||
+                !int.TryParse(wipDate[2], out dd) || dd.ToString("d2").Length < 2 || dd > 31 || dd <= 0)
             {
                 System.Media.SystemSounds.Beep.Play();
                 DialogResult whyDammitWhy = MessageBox.Show("Invalid Last Visit date. " +
@@ -213,12 +229,16 @@ namespace CS292Final_Kemerly
             category = cmbAddCategory.SelectedItem.ToString();
             name = txtAddName.Text;
             if (!dateNull)
-            { date = yyyy.ToString() + "/" + mm.ToString("d2") + "/" + dd.ToString("d2"); }
+            { date = yyyy.ToString() + "/" + mm.ToString("d2") + "-" + dd.ToString("d2"); }
             else
             { date = null; }
             try
             {
                 AddRestaurant(name, category, date);
+                lblStatus.Text = "Entry added successfully.";
+                cmbAddCategory.SelectedIndex = -1;
+                txtAddName.Text = "";
+                mtxtAddLastVisit.Text = "";
             }
             catch
             {
@@ -229,5 +249,10 @@ namespace CS292Final_Kemerly
             }
             
         }//end add click
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

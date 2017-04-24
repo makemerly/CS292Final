@@ -144,6 +144,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "History";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "History";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.History_FormClosing);
             this.Load += new System.EventHandler(this.History_Load);
