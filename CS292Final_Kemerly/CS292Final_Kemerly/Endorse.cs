@@ -42,7 +42,7 @@ namespace CS292Final_Kemerly
         }
 
         private bool selectionExists()
-        {
+        {//some simple error checking that is repeated below
             bool output = false;
 
             if (lstEndorse.SelectedIndex == -1)
@@ -69,13 +69,13 @@ namespace CS292Final_Kemerly
         }
 
         private void updateListBox(int inpIndex,string output)
-        {
+        {//"update" listbox line item
             lstEndorse.Items.RemoveAt(inpIndex);
             lstEndorse.Items.Insert(inpIndex, output);
         }
 
         private void btnEndorse_Click(object sender, EventArgs e)
-        {
+        {//set weights of listbox items for decision process
             if (!selectionExists())
             {                
                 return;

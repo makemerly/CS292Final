@@ -65,7 +65,7 @@ namespace CS292Final_Kemerly
             return outList;
         }
         private List<Glb.RestStruct> AutoVetoEnforced(List<Glb.RestStruct> inpList)
-        {
+        {//receives decision candidate list, pre-weight adjustment. sets auto-veto restaurant weights to 0.
             var dumbList = new List<Glb.RestStruct>();
 
             foreach (Glb.RestStruct rest in inpList)
@@ -104,7 +104,7 @@ namespace CS292Final_Kemerly
         //}
 
         private void DateToTable()
-        {
+        {//sets the lastvisit of the final decision restaurant
             sql = "UPDATE Restaurants "+
                 "Set LastVisit = Date() "+
                 "WHERE Name = @name";
@@ -116,7 +116,7 @@ namespace CS292Final_Kemerly
         }
         
         private void btnDecide_Click(object sender, EventArgs e)
-        {
+        {//the big one. handles the decision-making process.
             if (radUser.Checked)//manual decision
             {
                 if (lstMain.SelectedIndex == -1)
@@ -131,16 +131,14 @@ namespace CS292Final_Kemerly
                 {
                     Glb.gSelectedCategory = lstMain.SelectedItem.ToString();
                     //category decision is made.
-                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
-                }
+                                    }
                 if (Glb.gDecisionStage == 1)//...endorse/veto made, changed mind to decide manually
                 {
                     string selection = lstMain.SelectedItem.ToString().Remove(0,1);
                     string[] tokens = selection.Split(')');
                     string category = tokens[1];
                     Glb.gSelectedCategory = category.Trim();
-                    //category decision is made.                    
-                    //lblStatus.Text = "Decision rendered: " + Glb.gSelectedCategory + ".";
+                    //category decision is made.                                        
                 }
                 if (Glb.gDecisionStage == 2)
                 {
@@ -168,7 +166,7 @@ namespace CS292Final_Kemerly
                 }
                 if (Glb.gDecisionStage == 1)
                 {//populate weighted list. randomly select index = selected category.
-                    double totalweight = 0; //retard testing
+                    double totalweight = 0; //retard testing / fringe case
                     foreach (Glb.CatStruct cat in Glb.gCatList)
                     {
                         totalweight += cat.weight;
@@ -201,7 +199,7 @@ namespace CS292Final_Kemerly
                             return;
                         }
                     }
-                    Glb.gCatDecisionList = MakeCatDecList(Glb.gCatList);
+                    Glb.gCatDecisionList = MakeCatDecList(Glb.gCatList);//weighted decision list!
                     Random randal = new Random();
                     int decisionIndex = randal.Next(0, Glb.gCatDecisionList.Count);
                     Glb.gSelectedCategory = Glb.gCatDecisionList[decisionIndex];
@@ -249,15 +247,15 @@ namespace CS292Final_Kemerly
                         }
                     }
 
-
-                    Glb.gRestDecisionList = MakeRestDecList(Glb.gRestList);
+                    Glb.gRestDecisionList = MakeRestDecList(Glb.gRestList);//generate weighted decision list!
                     Random randal = new Random();
                     int decisionIndex = randal.Next(0, Glb.gRestDecisionList.Count);
                     Glb.gSelectedRestaurant = Glb.gRestDecisionList[decisionIndex];
                     //restaurant decision is made                    
                 }//end stage 3
             }// end app decides
-            
+
+            //this group of if statements advance the application through the process and reports final outcome
             if (Glb.gDecisionStage < 2 && 
                 Glb.gSelectedCategory != "")
             {
@@ -394,7 +392,7 @@ namespace CS292Final_Kemerly
         }
 
         private void CategoryListBox()
-        {
+        {//reads categories from db, adds to listbox
             lstMain.Items.Clear();
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {
@@ -418,7 +416,7 @@ namespace CS292Final_Kemerly
         }//end CategoryListBox
 
         private void RestaurantListBox(string pSelectedCategory)
-        {
+        {//reads names from db, adds to listbox
             lstMain.Items.Clear();
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
             {

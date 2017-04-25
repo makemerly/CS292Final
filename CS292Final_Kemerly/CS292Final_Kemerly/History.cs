@@ -24,7 +24,7 @@ namespace CS292Final_Kemerly
         string sql;
 
         private void DisplayTable()
-        {
+        {//table refresh
             sql = "Select Name, LastVisit FROM Restaurants";
             ds = new DataSet();
             da = new SQLiteDataAdapter(sql, conn);            
@@ -52,7 +52,7 @@ namespace CS292Final_Kemerly
         //}
 
         private List<string> GetAutoVetoList()
-        {
+        {//generates a list of strings - the auto veto list
             string preOutput = "";
             
             using (SQLiteConnection conn = new SQLiteConnection(dbRestaurants))
@@ -82,7 +82,7 @@ namespace CS292Final_Kemerly
         }
 
         private void DeleteEntry(string inpName)
-        {
+        {//"deletes" the lastvisit of a restaurant in the db
             sql = "UPDATE Restaurants " +
                 "Set LastVisit = NULL " +
                 "WHERE Name = @name";
@@ -94,7 +94,7 @@ namespace CS292Final_Kemerly
         }
 
         private void DeleteHistory()
-        {
+        {//"deletes" all of the lastvisit entries
             sql = "UPDATE Restaurants " +
                 "Set LastVisit = NULL";
             conn.Open();

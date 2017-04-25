@@ -182,7 +182,7 @@ namespace CS292Final_Kemerly
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
-        {
+        {//simple input validation, attempts to add a new restaurant to the db
             string name = "";
             string category = "";
             string[] wipDate;
