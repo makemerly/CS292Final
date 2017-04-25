@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 
@@ -118,7 +114,8 @@ namespace CS292Final_Kemerly
         {
             DisplayTable();
             SortTable();
-            //DisableDGVSorting(dgvHistory);
+            chkHistoryVeto.Checked = Glb.autoVetoEnabled;
+            numHistoryVeto.Value = (decimal)Glb.gAutoVetoNumber;
         }
 
         private void btnOkay_Click(object sender, EventArgs e)
@@ -161,6 +158,7 @@ namespace CS292Final_Kemerly
             {
                 Glb.autoVetoList = GetAutoVetoList();
                 Glb.autoVetoEnabled = true;
+                Glb.gAutoVetoNumber = (double)numHistoryVeto.Value;
             }
             if (!chkHistoryVeto.Checked)
             {

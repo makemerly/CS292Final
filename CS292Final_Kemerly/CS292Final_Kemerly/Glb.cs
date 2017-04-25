@@ -15,6 +15,7 @@ namespace CS292Final_Kemerly
          * 3:names endorsed 4:final/name endorsed     */
 
         public static int gDecisionStage = 0;
+        public static double gAutoVetoNumber = 1;
         public static List<CatStruct> gCatList = new List<CatStruct>();
         public static List<string> gCatDecisionList = new List<string>();
         public static List<RestStruct> gRestList = new List<RestStruct>();
