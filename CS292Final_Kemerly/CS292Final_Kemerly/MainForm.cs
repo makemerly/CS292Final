@@ -166,7 +166,7 @@ namespace CS292Final_Kemerly
                 }
                 if (Glb.gDecisionStage == 1)
                 {//populate weighted list. randomly select index = selected category.
-                    double totalweight = 0; //retard testing / fringe case
+                    double totalweight = 0; //stupid testing / fringe case
                     foreach (Glb.CatStruct cat in Glb.gCatList)
                     {
                         totalweight += cat.weight;
